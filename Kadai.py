@@ -1,24 +1,15 @@
-def quick_sort(data):
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
 
-    if len(data) <= 1:
-        return data
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
 
-    pivot = data.pop(0)     #リストの先頭をピボットとして取り出す
+    return quick_sort(left) + middle + quick_sort(right)
 
-    # ピボットより小さいものでリストを作る
-    left = [i for i in data if i <= pivot]
-    # ピボットより大きいものでリストを作る
-    right = [i for i in data if i > pivot]
 
-    left = quick_sort(left)       #入力に対する左側リストを形成する
-    right = quick_sort(right)   #入力に対する右側リストを形成する
-
-    #########再帰しきった結果のみ，quick_sort関数の出力として返される
-    #########それ以外のreturnは上のleft = quick_sort(right), left = quick_sort(right)
-    return left + [pivot] + right
-    
-
-if __name__ == '__main__':
-    DATA = [6, 15, 4, 2, 8, 5, 11, 9, 7, 13]
-
-    print(f"{DATA} → {quick_sort(DATA)}")
+if __name__ == "__main__":
+    data = [5, 3, 8, 4, 2, 7, 1, 6]
+    print(quick_sort(data))
